@@ -25,7 +25,6 @@ public class MarketTester {
 	    dao.save(dto2);
 	    dao.save(dto1);
 	    System.out.println("saved : " + added);
-	    
 		MarketDTO dt = dao.find((i)-> i.getName().equals("Devaraj Market"));
 		System.out.println(dt);
 		
