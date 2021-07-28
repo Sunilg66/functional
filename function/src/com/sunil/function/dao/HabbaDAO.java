@@ -3,13 +3,16 @@ package com.sunil.function.dao;
 import java.util.Collection;
 
 import com.sunil.function.dto.HabbaDTO;
+import com.sunil.function.search.HabbaSearch;
 
 public interface HabbaDAO {
 	
 	boolean ulisu(HabbaDTO dto);
 	
-	HabbaDTO ondunaHuduku(HabbaDTO huduku);
+	HabbaDTO huduku(HabbaSearch search);
 	
-	Collection<HabbaDTO> yellavannuHuduku(HabbaDTO huduku);
+	Collection<HabbaDTO> yellaHuduku(HabbaSearch search);
+	
+	
 
 }

@@ -23,31 +23,24 @@ public class MarketDAOImpl implements MarketDAO{
 	@Override
 	public MarketDTO find(MarketSearch search) {
 		
-		Iterator<MarketDTO> itr = this.list.iterator();
-		MarketDTO dt = null;
-		while (itr.hasNext()) {
-			MarketDTO marketDTO = itr.next();
-			if(search.test(marketDTO)) {
-				dt=marketDTO;
-				
+		List<MarketDTO> temp = new ArrayList<MarketDTO>();
+		list.forEach((a-> {
+			if(search.test(a)) {
+				temp.add(a);
 			}
-			
-		}
-		
-		return dt;
+		}));
+		return temp.get(0);
 	}
 
 	@Override
 	public Collection<MarketDTO> findAll(MarketSearch search) {
 		Collection<MarketDTO> dto = new ArrayList<MarketDTO>();
-		Iterator<MarketDTO> it = this.list.iterator();
-		while (it.hasNext()) {
-			MarketDTO marketDTO = it.next();
-			if(search.test(marketDTO)) {
-				dto.add(marketDTO);
-			}
-			
+		
+	list.forEach((b -> {
+		if(search.test(b)) {
+			list.add(b);
 		}
+	}));
 		
 		return dto;
 	}

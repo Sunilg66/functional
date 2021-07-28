@@ -5,8 +5,9 @@ import java.util.Collection;
 import java.util.List;
 
 import com.sunil.function.dto.HabbaDTO;
+import com.sunil.function.search.HabbaSearch;
 
-public class HabbaDAOImpl implements HabbaDAO{
+public  class HabbaDAOImpl implements HabbaDAO{
 	
 	private List<HabbaDTO> list = new ArrayList<HabbaDTO>();
 
@@ -19,16 +20,31 @@ public class HabbaDAOImpl implements HabbaDAO{
 	}
 
 	@Override
-	public HabbaDTO ondunaHuduku(HabbaDTO huduku) {
-		list.forEach((a) -> System.out.println(a));
-		return huduku;
+	public HabbaDTO huduku(HabbaSearch search) {
+		
+		List<HabbaDTO> dt = new ArrayList<HabbaDTO>();
+		list.forEach((m -> {
+			if(search.huduku(m)) {
+				dt.add(m);
+			}
+		}));
+		
+		return dt.get(0);
 	}
 
 	@Override
-	public Collection<HabbaDTO> yellavannuHuduku(HabbaDTO huduku) {
-		list.forEach((b) -> System.out.println(b));
+	public Collection<HabbaDTO> yellaHuduku(HabbaSearch search) {
 		
-		return list;
+		Collection<HabbaDTO> dto = new ArrayList<HabbaDTO>();
+		
+		list.forEach((s -> {
+			if(search.huduku(s)) {
+				list.add(s);
+			}
+		}));
+		
+		return dto;
 	}
+
 
 }
