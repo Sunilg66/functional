@@ -12,12 +12,20 @@ import com.sunil.function.search.RogiSearch;
 
 public class RogiDAOImpl implements RogiDAO{
 	
-	private List<RogiDTO> list = new ArrayList<RogiDTO>();
+	private Collection<RogiDTO> coll = new ArrayList<RogiDTO>();
+	
+	@Override
+	public boolean save(RogiDTO dto) {
+		boolean added = coll.add(dto);
+		System.out.println(dto);
+		System.out.println("dto was added : " + added);
+		return added;
+	}
 
 	@Override
 	public Optional<RogiDTO> findOne(RogiSearch search) {
 		
-		Iterator<RogiDTO> itr = this.list.iterator();
+		Iterator<RogiDTO> itr = this.coll.iterator();
 		Optional<RogiDTO> op = Optional.empty();
 		while (itr.hasNext()) {
 			RogiDTO rogiDTO = itr.next();
@@ -31,25 +39,27 @@ public class RogiDAOImpl implements RogiDAO{
 
 	@Override
 	public Optional<Integer> totalSize() {
+		Optional<Integer> optional = Optional.empty();
+		int size = coll.size();
+		System.out.println("size : " + size);
+		optional = Optional.of(size);
 		
-		int size = list.size();
-		
-		return Optional.of(size);
+		return optional;
 	}
 
 	@Override
 	public Collection<RogiDTO> findAll() {
 		
-		return this.list;
+		return this.coll;
 	}
 
 	@Override
 	public Collection<RogiDTO> findAll(RogiSearch search) {
 		Collection<RogiDTO> dt = new ArrayList<RogiDTO>();
 		
-		list.forEach((s -> {
+		this.coll.forEach((s -> {
 			if(search.huduku(s)) {
-				list.add(s);
+				coll.add(s);
 			}
 		}));
 		
@@ -60,21 +70,18 @@ public class RogiDAOImpl implements RogiDAO{
 	@Override
 	public Optional<RogiDTO> findByMaxAge() {
 		
-		Optional<RogiDTO> dt = Optional.of(Collections.max(list));
+		Optional<RogiDTO> dt = Optional.empty();
+		dt= Optional.of(Collections.max(coll));
 		return dt;
 	}
 
 	@Override
 	public Optional<RogiDTO> findByMinAge() {
 		
-		Optional<RogiDTO> dto = Optional.of(Collections.min(list));
+		Optional<RogiDTO> dto = Optional.empty();
+		dto=Optional.of(Collections.max(coll));
 		return dto;
 	}
-	
-	
-	
-    
-	
-	
+   	
 
 }

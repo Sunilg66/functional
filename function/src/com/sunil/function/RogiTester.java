@@ -1,9 +1,7 @@
 package com.sunil.function;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
 
 import com.sunil.function.dao.RogiDAO;
@@ -24,33 +22,46 @@ public class RogiTester {
 		
 		RogiDAO dao = new RogiDAOImpl();
 		
-		Collection<RogiDTO> list = new ArrayList<RogiDTO>();
+		dao.save(dto1);
+		dao.save(dto2);
+		dao.save(dto3);
+		dao.save(dto4);
+		dao.save(dto);
 		
 		
 		Optional<RogiDTO> dt = dao.findOne((a) -> a.getName().equals("Pavitra"));
-		if(dt.isPresent()) {
-			RogiDTO get = dt.get();
-			System.out.println("get : " + get.getName());
-		}else {
-			System.out.println("Rogi not found ");
-		}
-		
-		System.out.println(dao.totalSize());
-		
-		Collection<RogiDTO> collection = dao.findAll();
-		for(RogiDTO temp :  collection) {
-			System.out.println(temp);
+		boolean s = dt.isPresent();
+			System.out.println("get : " + s);
+			if(dt.isPresent()) {
+				RogiDTO rdt = dt.get();
+				System.out.println("found : " + rdt);
+			}else {
+				System.out.println("not found");
 			}
 		
-		 list.forEach((m)-> {
-			 if(m.getKayile().equals("Yavaglu confussion")){
-				 System.out.println("kayile found");
-				 list.add(m);
-				 }else {
-					 System.out.println("kayile not found");
-				 }
-		 });
+		Optional<Integer> op = dao.totalSize();
+		if(op.isPresent()) {
+			Integer it = op.get();
+			System.out.println(it);
+		}
 		
+		
+		Collection<RogiDTO> all = dao.findAll((m)-> m.getAge()>21);
+		for(RogiDTO rogi : all) {
+			System.out.println("find all : "+ rogi);
+		}
+		
+		 Optional<RogiDTO> age = dao.findByMaxAge();
+		 if(age.isPresent()) {
+			 RogiDTO ag = age.get();
+			 System.out.println("max age : " + ag);
+		 }
+		 
+		 Optional<RogiDTO> min = dao.findByMinAge();
+		 if(min.isPresent()) {
+			 RogiDTO mn = min.get();
+			 System.out.println("min age : " + mn);
+		 }
 		
 	}
 

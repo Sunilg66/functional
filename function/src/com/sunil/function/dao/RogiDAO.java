@@ -8,6 +8,8 @@ import com.sunil.function.search.RogiSearch;
 
 public interface RogiDAO {
 	
+	boolean save(RogiDTO dto);
+	
 	Optional<RogiDTO> findOne(RogiSearch search);
 	Optional<Integer> totalSize();
 	Collection<RogiDTO> findAll();
